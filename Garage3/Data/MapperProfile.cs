@@ -34,7 +34,7 @@ namespace Garage3.Data
                 dest => dest.Username,
                 from => from.MapFrom(s => s.Vehicle.User.FullName));
 
-
+            CreateMap<VehicleType, VehicleTypeAddViewModel>().ReverseMap();
         }
     }
 }
