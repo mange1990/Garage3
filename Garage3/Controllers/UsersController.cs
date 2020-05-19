@@ -7,22 +7,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage3.Data;
 using Garage3.Models;
+using AutoMapper;
+using Garage3.Models.ViewModels;
 
 namespace Garage3.Controllers
 {
     public class UsersController : Controller
     {
         private readonly Garage3Context _context;
+        private readonly IMapper mapper;
 
-        public UsersController(Garage3Context context)
+        public UsersController(Garage3Context context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            var model = await mapper.ProjectTo<UserListViewModel>(_context.Users).Take(20).ToListAsync();
+            return View(model);
         }
 
         // GET: Users/Details/5
@@ -33,8 +38,9 @@ namespace Garage3.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+
+            var user = await mapper.ProjectTo<UserDetailsViewModel>(_context.Users).FirstOrDefaultAsync(s => s.Id == id);
+
             if (user == null)
             {
                 return NotFound();
@@ -44,7 +50,7 @@ namespace Garage3.Controllers
         }
 
         // GET: Users/Create
-        public IActionResult Create()
+        public IActionResult Add()
         {
             return View();
         }
@@ -54,15 +60,17 @@ namespace Garage3.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Age,Email")] User user)
+        public async Task<IActionResult> Add(UserAddViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var user = mapper.Map<User>(viewModel);
+
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View(viewModel);
         }
 
         // GET: Users/Edit/5
