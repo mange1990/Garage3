@@ -9,6 +9,7 @@ using Garage3.Data;
 using Garage3.Models;
 using AutoMapper;
 using Garage3.Models.ViewModels;
+using Garage3.Filter;
 
 namespace Garage3.Controllers
 {
@@ -30,22 +31,14 @@ namespace Garage3.Controllers
             return View(model);
         }
 
+
         // GET: Users/Details/5
+       
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-
             var user = await mapper.ProjectTo<UserDetailsViewModel>(_context.Users).FirstOrDefaultAsync(s => s.Id == id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
             return View(user);
         }
 
@@ -74,18 +67,11 @@ namespace Garage3.Controllers
         }
 
         // GET: Users/Edit/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.Users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
+        {    
+            var user = await _context.Users.FindAsync(id);    
             return View(user);
         }
 
@@ -125,20 +111,12 @@ namespace Garage3.Controllers
         }
 
         // GET: Users/Delete/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var user = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
             return View(user);
         }
 
