@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Garage3.Data;
 using Garage3.Models;
 using Microsoft.Extensions.Configuration;
+using Garage3.Models.ViewModels;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Garage3.Controllers
 {
@@ -15,18 +18,20 @@ namespace Garage3.Controllers
     {
         private readonly Garage3Context _context;
         private readonly IConfiguration config;
+        private readonly IMapper mapper;
 
-        public ParkingPlacesController(Garage3Context context, IConfiguration config)
+        public ParkingPlacesController(Garage3Context context, IConfiguration config, IMapper mapper)
         {
             _context = context;
             this.config = config;
+            this.mapper = mapper;
         }
 
         // GET: ParkingPlaces
         public async Task<IActionResult> Index()
         {
-            var garage3Context = _context.ParkingPlaces.Include(p => p.Vehicle);
-            return View(await garage3Context.ToListAsync());
+            var model = await mapper.ProjectTo<ParkingPlaceListViewModel>(_context.ParkingPlaces).Take(20).ToListAsync();
+            return View(model);
         }
 
         // GET: ParkingPlaces/Details/5
@@ -51,7 +56,7 @@ namespace Garage3.Controllers
         // GET: ParkingPlaces/Create
         public IActionResult Create()
         {
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Color");
+            //ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Color");
             return View();
         }
 
@@ -60,16 +65,21 @@ namespace Garage3.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Arrival,VehicleId")] ParkingPlace parkingPlace)
+        public async Task<IActionResult> Create(int id)
         {
+            var model = new ParkingPlace
+            {
+                VehicleId = id
+            };
+
             if (ModelState.IsValid)
             {
-                _context.Add(parkingPlace);
+                _context.Add(model);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Color", parkingPlace.VehicleId);
-            return View(parkingPlace);
+            //ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Color", parkingPlace.VehicleId);
+            return View();
         }
 
         // GET: ParkingPlaces/Edit/5
@@ -159,6 +169,8 @@ namespace Garage3.Controllers
         {
             return _context.ParkingPlaces.Any(e => e.Id == id);
         }
+
+        public DateTime GetTime() => DateTime.Now;
 
         //public bool CheckCapacity()
         //{

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Garage3.Data;
 using AutoMapper;
+using Garage3.Services;
 
 namespace Garage3
 {
@@ -32,6 +33,8 @@ namespace Garage3
                     options.UseSqlServer(Configuration.GetConnectionString("Garage3Context")));
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<IVehicleTypeDropdown, VehicleTypeDropdown>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
