@@ -54,7 +54,11 @@ namespace Garage3.Controllers
         public IActionResult Add()
         {
             //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Name");
+            //ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Name");
+            //var model = new VehicleAddViewModel
+            //{
+            //    VehicleTypes = _context.VehicleTypes.Select(e => new SelectListItem { Text = e.Name, Value = e.Id.ToString() })
+            //};
             return View();
         }
 
@@ -69,10 +73,7 @@ namespace Garage3.Controllers
             {
                 var vehicle = mapper.Map<Vehicle>(viewModel);
                 vehicle.UserId = id;
-                //var value = int.Parse(_context.VehicleTypes.Where(e => e.Name == viewModel.VehicleType).Select(e => e.Id));
-                //vehicle.VehicleTypeId = value;
-                //viewModel.VehicleType = viewModel.VehicleType;
-                //viewModel.VehicleTypes = await VehicleTypesAsync();
+                
 
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
@@ -174,17 +175,7 @@ namespace Garage3.Controllers
             return _context.Vehicles.Any(e => e.Id == id);
         }
 
-        private async Task<IEnumerable<SelectListItem>> VehicleTypesAsync()
-        {
-            return await _context.VehicleTypes
-                .Select(m => m.Name)
-                .Distinct()
-                .Select(m => new SelectListItem
-                {
-                    Text = m.ToString(),
-                    Value = m.ToString()
-                })
-                .ToListAsync();
-        }
+        
+        
     }
 }

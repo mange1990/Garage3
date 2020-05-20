@@ -27,12 +27,13 @@ namespace Garage3.Data
                 dest => dest.VehicleType,
                 from => from.MapFrom(s => s.Vehicle.VehicleType.Name));
 
-            CreateMap<Vehicle, VehicleAddViewModel>().ReverseMap();
-                //.ForMember(
-                //dest => dest.VehicleType,
-                //from => from.MapFrom(s => s.VehicleType.Name))
-                
-            
+            CreateMap<VehicleAddViewModel, Vehicle>()
+                .ForMember(dest => dest.UserId, opt => opt.Ignore())
+                .ForMember(dest => dest.VehicleType, opt => opt.Ignore());
+
+
+
+
             CreateMap<ParkingPlace, ReceiptViewModel>()
                 .ForMember(
                 dest => dest.Username,
