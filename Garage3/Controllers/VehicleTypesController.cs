@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage3.Data;
 using Garage3.Models;
+using Garage3.Models.ViewModels;
+using AutoMapper;
 
 namespace Garage3.Controllers
 {
     public class VehicleTypesController : Controller
     {
         private readonly Garage3Context _context;
+        private readonly IMapper mapper;
 
-        public VehicleTypesController(Garage3Context context)
+        public VehicleTypesController(Garage3Context context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: VehicleTypes
@@ -44,7 +48,7 @@ namespace Garage3.Controllers
         }
 
         // GET: VehicleTypes/Create
-        public IActionResult Create()
+        public IActionResult Add()
         {
             return View();
         }
@@ -54,15 +58,17 @@ namespace Garage3.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Size")] VehicleType vehicleType)
+        public async Task<IActionResult> Add(VehicleTypeAddViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var vehicleType = mapper.Map<VehicleType>(viewModel);
+
                 _context.Add(vehicleType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(vehicleType);
+            return View(viewModel);
         }
 
         // GET: VehicleTypes/Edit/5

@@ -13,6 +13,7 @@ namespace Garage3.Models.ViewModels
         public string Manufacturer { get; set; }
         public string Color { get; set; }
         public string VehicleModel { get; set; }
-        public IEnumerable<SelectListItem> VehicleType { get; set; }
+        public int VehicleTypeId { get; set; }
+        public IEnumerable<SelectListItem> VehicleTypes { get; set; }
     }
 }

@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Garage3.Data;
 using Garage3.Models;
+using Garage3.Models.ViewModels;
+using AutoMapper;
 
 namespace Garage3.Controllers
 {
     public class VehiclesController : Controller
     {
         private readonly Garage3Context _context;
+        private readonly IMapper mapper;
 
-        public VehiclesController(Garage3Context context)
+        public VehiclesController(Garage3Context context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: Vehicles
@@ -47,10 +51,10 @@ namespace Garage3.Controllers
         }
 
         // GET: Vehicles/Create
-        public IActionResult Create()
+        public IActionResult Add()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Id");
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Name");
             return View();
         }
 
@@ -59,17 +63,24 @@ namespace Garage3.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Wheels,RegistrationNumber,Manufacturer,Color,VehicleModel,VehicleTypeId,UserId")] Vehicle vehicle)
+        public async Task<IActionResult> Add(VehicleAddViewModel viewModel, int id)
         {
             if (ModelState.IsValid)
             {
+                var vehicle = mapper.Map<Vehicle>(viewModel);
+                vehicle.UserId = id;
+                //var value = int.Parse(_context.VehicleTypes.Where(e => e.Name == viewModel.VehicleType).Select(e => e.Id));
+                //vehicle.VehicleTypeId = value;
+                //viewModel.VehicleType = viewModel.VehicleType;
+                //viewModel.VehicleTypes = await VehicleTypesAsync();
+
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vehicle.UserId);
-            ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Id", vehicle.VehicleTypeId);
-            return View(vehicle);
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vehicle.UserId);
+            //ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Id", vehicle.VehicleTypeId);
+            return View(viewModel);
         }
 
         // GET: Vehicles/Edit/5
@@ -161,6 +172,19 @@ namespace Garage3.Controllers
         private bool VehicleExists(int id)
         {
             return _context.Vehicles.Any(e => e.Id == id);
+        }
+
+        private async Task<IEnumerable<SelectListItem>> VehicleTypesAsync()
+        {
+            return await _context.VehicleTypes
+                .Select(m => m.Name)
+                .Distinct()
+                .Select(m => new SelectListItem
+                {
+                    Text = m.ToString(),
+                    Value = m.ToString()
+                })
+                .ToListAsync();
         }
     }
 }
