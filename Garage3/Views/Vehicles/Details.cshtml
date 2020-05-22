@@ -52,7 +52,8 @@
 <div>
     <form asp-controller="ParkingPlaces" asp-action="Create" asp-route-id="@Model.Id" method="post">
         <button type="submit">NEW PARK</button>
-    </form>|
+    </form>
+    <div class="alert text-danger font-weight-bold mb-0">@TempData["failedParking"]</div>
     @*<a asp-controller="ParkingPlaces" asp-action="Create" method="post" asp-route-id="@Model.Id">Park</a>*@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index" class="text-info">BACK TO THE LIST</a>
