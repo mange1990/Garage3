@@ -4,60 +4,61 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="bg-info border rounded-lg font-italic text-light p-4">VEHCILE DETAILS</h1>
 
 <div>
     <h4>Vehicle</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Wheels)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Wheels)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.RegistrationNumber)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RegistrationNumber)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Manufacturer)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Manufacturer)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Color)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Color)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.VehicleModel)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.VehicleModel)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.VehicleType)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.VehicleType.Id)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.User)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.Id)
         </dd>
     </dl>
 </div>
-<div><form asp-controller="ParkingPlaces" asp-action="Create" asp-route-id="@Model.Id" method="post">
-         <button type="submit">NEW PARK</button>
+<div>
+    <form asp-controller="ParkingPlaces" asp-action="Create" asp-route-id="@Model.Id" method="post">
+        <button type="submit">NEW PARK</button>
     </form>|
-        @*<a asp-controller="ParkingPlaces" asp-action="Create" method="post" asp-route-id="@Model.Id">Park</a>*@
+    @*<a asp-controller="ParkingPlaces" asp-action="Create" method="post" asp-route-id="@Model.Id">Park</a>*@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="text-info">BACK TO THE LIST</a>
 </div>

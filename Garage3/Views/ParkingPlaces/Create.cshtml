@@ -4,25 +4,23 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>ParkingPlace</h4>
+<h1 class="bg-info border rounded-lg font-weight-bold text-light p-2 ">CREATE PARKING PLACE</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-controller ="ParkingPlaces" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Arrival" />
             <input type="hidden" asp-for="VehicleId" />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-info" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="text-info">BACK TO THE LIST</a>
 </div>
 
 @section Scripts {
