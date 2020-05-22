@@ -1,4 +1,4 @@
-﻿@model Garage3.Models.ParkingPlace
+﻿@model Garage3.Models.ViewModels.ParkingplaceDeleteViewModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,25 +8,36 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>ParkingPlace</h4>
+    <h4>ParkingplaceDeleteViewModel</h4>
     <hr />
     <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VehicleRegistrationNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VehicleRegistrationNumber)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Arrival)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Arrival)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Vehicle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Vehicle.Color)
-        </dd class>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

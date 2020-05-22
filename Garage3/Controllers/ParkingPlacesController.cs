@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Garage3.Models.ViewModels;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Garage3.Filter;
 
 namespace Garage3.Controllers
 {
@@ -136,21 +137,11 @@ namespace Garage3.Controllers
         }
 
         // GET: ParkingPlaces/Delete/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var parkingPlace = await _context.ParkingPlaces
-                .Include(p => p.Vehicle)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (parkingPlace == null)
-            {
-                return NotFound();
-            }
-
+            var parkingPlace = await mapper.ProjectTo<ParkingplaceDeleteViewModel>(_context.ParkingPlaces).FirstOrDefaultAsync(p => p.Id == id);
             return View(parkingPlace);
         }
 
