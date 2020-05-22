@@ -78,6 +78,15 @@ namespace Garage3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(int id)
         {
+            var found = _context.ParkingPlaces.FirstOrDefault(p => p.VehicleId == id);
+
+            if (found != null)
+            {
+                TempData["failedParking"] = $"Reg Nr: This vehicle is already parked!";
+                return RedirectToAction(nameof(Details), "Vehicles", new { id });
+
+            }
+
             var model = new ParkingPlace
             {
                 VehicleId = id
