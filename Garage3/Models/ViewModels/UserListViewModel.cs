@@ -12,5 +12,7 @@ namespace Garage3.Models.ViewModels
         public int Age { get; set; }
         public string Email { get; set; }
         public int VehicleCount { get; set; }
+
+        public IEnumerable<User> users { get; set; }
     }
 }

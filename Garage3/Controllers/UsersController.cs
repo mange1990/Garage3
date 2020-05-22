@@ -25,10 +25,15 @@ namespace Garage3.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string fullname)
         {
             var model = await mapper.ProjectTo<UserListViewModel>(_context.Users).Take(20).ToListAsync();
-            return View(model);
+
+            var u = string.IsNullOrWhiteSpace(fullname) ?
+                            model :
+                          model.Where(m => m.FullName.Contains(fullname));
+
+            return View(u);
         }
 
 

@@ -29,10 +29,20 @@ namespace Garage3.Controllers
         }
 
         // GET: ParkingPlaces
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string regNr, string vehicleType)
         {
             var model = await mapper.ProjectTo<ParkingPlaceListViewModel>(_context.ParkingPlaces).Take(20).ToListAsync();
-            return View(model);
+
+            var parkingPlace = string.IsNullOrWhiteSpace(regNr) ?
+                          model :
+                        model.Where(m => m.VehicleRegistrationNumber.Contains(regNr));
+           
+            parkingPlace = string.IsNullOrWhiteSpace(vehicleType) ?
+                         parkingPlace :
+                       parkingPlace.Where(m => m.VehicleType == int.Parse(vehicleType));
+
+
+            return View(parkingPlace);
         }
 
         // GET: ParkingPlaces/Details/5

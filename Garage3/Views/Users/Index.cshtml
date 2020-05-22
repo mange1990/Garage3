@@ -5,6 +5,20 @@
 }
 
 <h1 class="bg-info border rounded-lg font-weight-bold text-light p-4">USER LIST</h1>
+<form method="get" asp-controller="Users" asp-action="Index" class="text-light bg-info border rounded-lg">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="fullname" placeholder="Search by name..." />
+        @*<div class="input-group-append">
+                <select asp-for="Color" asp-items="@Model." class="form-control">
+                    <option selected="selected" value="">Color</option>
+                </select>
+            </div>*@
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-info">&#128270;Search</button>
+        </div>
+    </div>
+</form>
+<!--
 <form class="text-light bg-info border rounded-lg" asp-action="Filter">
     <div class="input-group m-auto">
         <input type="text" name="FirstName" class="form-control" placeholder="Search on First Name" />
@@ -17,12 +31,13 @@
 
     </div>
 </form>
+-->
 
-    <div class="btn-group col-sm-6 col mr-4">
-        <a class="btn btn-dark " asp-controller="Users" asp-action="Add">NEW USER</a>
-    </div>
+<div class="btn-group col-sm-6 col mr-4">
+    <a class="btn btn-dark " asp-controller="Users" asp-action="Add">NEW USER</a>
+</div>
 
-   
+
 <table class="table">
     <thead>
         <tr>

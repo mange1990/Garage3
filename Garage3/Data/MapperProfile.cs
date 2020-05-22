@@ -25,7 +25,7 @@ namespace Garage3.Data
                 from => from.MapFrom(s => s.Vehicle.User.FullName))
                 .ForMember(
                 dest => dest.VehicleType,
-                from => from.MapFrom(s => s.Vehicle.VehicleType.Name));
+                from => from.MapFrom(s => s.Vehicle.VehicleType.Id));
 
             CreateMap<VehicleAddViewModel, Vehicle>()
                 .ForMember(dest => dest.UserId, opt => opt.Ignore())

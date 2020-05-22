@@ -12,7 +12,7 @@ namespace Garage3.Models.ViewModels
         public DateTime Arrival { get; set; }
         public string VehicleRegistrationNumber { get; set; }
         public string Username { get; set; }
-        public string VehicleType { get; set; }
+        public int VehicleType { get; set; }
         public TimeSpan Duration => DateTime.Now - Arrival;
     }
 }
