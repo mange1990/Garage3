@@ -36,10 +36,12 @@ namespace Garage3.Controllers
         [ModelNotNullFilter]
         public async Task<IActionResult> Details(int? id)
         {
-            var vehicle = await _context.Vehicles
-                .Include(v => v.User)
-                .Include(v => v.VehicleType)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            
+
+            var vehicle = await mapper.ProjectTo<VehicleDetailsViewModel>(_context.Vehicles).FirstOrDefaultAsync(s => s.Id == id);
+
+            
+
             return View(vehicle);
         }
 
@@ -67,10 +69,9 @@ namespace Garage3.Controllers
                 var vehicle = mapper.Map<Vehicle>(viewModel);
                 vehicle.UserId = id;
                 
-
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = vehicle.Id });
             }
             //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vehicle.UserId);
             //ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Id", vehicle.VehicleTypeId);

@@ -1,0 +1,57 @@
+﻿@model ReceiptViewModel
+
+@{
+    ViewData["Title"] = "Receipt";
+}
+
+<h1>Receipt</h1>
+
+<div>
+    <h4>ReceiptViewModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.VehicleRegistrationNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.VehicleRegistrationNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Arrival)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Arrival)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckOut)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckOut)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ParkingTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ParkingTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div class="container hideforprint">
+    <input class="btn-outline-info btn mb-3" type="button" onclick="optimiseForPrint()" value="Print">
+
+    <form asp-action="View">
+        <a asp-action="Index" class="text-info">Back to the garage</a>
+    </form>
+</div>

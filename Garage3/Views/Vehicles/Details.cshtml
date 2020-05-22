@@ -1,4 +1,4 @@
-﻿@model Garage3.Models.Vehicle
+﻿@model VehicleDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -7,14 +7,15 @@
 <h1 class="bg-info border rounded-lg font-italic text-light p-4">VEHCILE DETAILS</h1>
 
 <div>
-    <h4>Vehicle</h4>
+    <h4>VehicleDetailsViewModel</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Wheels)
+       
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserFullName)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Wheels)
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserFullName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.RegistrationNumber)
@@ -28,29 +29,23 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Manufacturer)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt class="col-sm-2">
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.VehicleModel)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.VehicleModel)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.VehicleType)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Color)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.VehicleType.Id)
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Color)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Wheels)
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Wheels)
         </dd>
     </dl>
 </div>
