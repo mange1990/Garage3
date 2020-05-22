@@ -1,4 +1,4 @@
-﻿@model Garage3.Models.Vehicle
+﻿@model VehicleDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -7,14 +7,15 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Vehicle</h4>
+    <h4>VehicleDetailsViewModel</h4>
     <hr />
     <dl class="row">
+       
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Wheels)
+            @Html.DisplayNameFor(model => model.UserFullName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Wheels)
+            @Html.DisplayFor(model => model.UserFullName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.RegistrationNumber)
@@ -29,35 +30,30 @@
             @Html.DisplayFor(model => model.Manufacturer)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.VehicleModel)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.VehicleModel)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VehicleType)
+            @Html.DisplayNameFor(model => model.Color)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VehicleType.Id)
+            @Html.DisplayFor(model => model.Color)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
+            @Html.DisplayNameFor(model => model.Wheels)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
+            @Html.DisplayFor(model => model.Wheels)
         </dd>
     </dl>
 </div>
-<div><form asp-controller="ParkingPlaces" asp-action="Create" asp-route-id="@Model.Id" method="post">
-         <button type="submit">NEW PARK</button>
+<div>
+    <form asp-controller="ParkingPlaces" asp-action="Create" asp-route-id="@Model.Id" method="post">
+        <button type="submit">NEW PARK</button>
     </form>|
-        @*<a asp-controller="ParkingPlaces" asp-action="Create" method="post" asp-route-id="@Model.Id">Park</a>*@
+    @*<a asp-controller="ParkingPlaces" asp-action="Create" method="post" asp-route-id="@Model.Id">Park</a>*@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

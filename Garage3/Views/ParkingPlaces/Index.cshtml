@@ -9,6 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div class="alert text-success font-weight-bold mb-0">@TempData["message"]</div>
 <table class="table">
     <thead>
         <tr>
@@ -55,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="Edit" asp-route-id="@item.Id" class="text-info">EDIT</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="text-info">DETAILS</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-info">CHECKOUT</a>
             </td>
         </tr>
 }

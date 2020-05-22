@@ -61,6 +61,7 @@ namespace Garage3.Controllers
 
                 _context.Add(user);
                 await _context.SaveChangesAsync();
+                TempData["message"] = $"User: {user.FullName} has been added!";
                 return RedirectToAction(nameof(Index));
             }
             return View(viewModel);
