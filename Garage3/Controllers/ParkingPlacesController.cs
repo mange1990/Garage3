@@ -87,6 +87,9 @@ namespace Garage3.Controllers
             {
                 _context.Add(model);
                 await _context.SaveChangesAsync();
+                var vehicleRegNr = _context.Vehicles.Where(e => e.Id == id).Select(e => e.RegistrationNumber).ToList();
+                TempData["message"] = $"Reg Nr: {vehicleRegNr[0]} is parked!";
+
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Color", parkingPlace.VehicleId);
@@ -160,10 +163,22 @@ namespace Garage3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var parkingPlace = await _context.ParkingPlaces.FindAsync(id);
-            _context.ParkingPlaces.Remove(parkingPlace);
+            var parkedVehicle = await _context.ParkingPlaces.FindAsync(id);
+
+            var model = await mapper.ProjectTo<ReceiptViewModel>(_context.ParkingPlaces).FirstOrDefaultAsync(e => e.Id == id);
+
+            var checkout = DateTime.Now;
+            var realTime = (checkout - model.Arrival).TotalSeconds / 3600;
+            var chargeTime = (int)Math.Ceiling(realTime);
+
+            model.CheckOut = checkout;
+            model.ParkingTime = chargeTime;
+            model.Price = chargeTime * 80;
+
+            _context.ParkingPlaces.Remove(parkedVehicle);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("Receipt", model);
+            //return RedirectToAction(nameof(Index));
         }
 
         private bool ParkingPlaceExists(int id)

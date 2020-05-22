@@ -31,7 +31,7 @@ namespace Garage3.Data
                 .ForMember(dest => dest.UserId, opt => opt.Ignore())
                 .ForMember(dest => dest.VehicleType, opt => opt.Ignore());
 
-
+            CreateMap<Vehicle, VehicleDetailsViewModel>();
 
 
             CreateMap<ParkingPlace, ReceiptViewModel>()
