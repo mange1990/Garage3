@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Garage3.Data;
 using Garage3.Models;
 using Microsoft.Extensions.Configuration;
+using Garage3.Filter;
 
 namespace Garage3.Controllers
 {
@@ -30,21 +31,14 @@ namespace Garage3.Controllers
         }
 
         // GET: ParkingPlaces/Details/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
             var parkingPlace = await _context.ParkingPlaces
                 .Include(p => p.Vehicle)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (parkingPlace == null)
-            {
-                return NotFound();
-            }
-
             return View(parkingPlace);
         }
 
@@ -73,13 +67,10 @@ namespace Garage3.Controllers
         }
 
         // GET: ParkingPlaces/Edit/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var parkingPlace = await _context.ParkingPlaces.FindAsync(id);
             if (parkingPlace == null)
             {
@@ -126,21 +117,13 @@ namespace Garage3.Controllers
         }
 
         // GET: ParkingPlaces/Delete/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var parkingPlace = await _context.ParkingPlaces
                 .Include(p => p.Vehicle)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (parkingPlace == null)
-            {
-                return NotFound();
-            }
-
             return View(parkingPlace);
         }
 
