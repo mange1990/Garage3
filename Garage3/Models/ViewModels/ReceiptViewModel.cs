@@ -9,6 +9,8 @@ namespace Garage3.Models.ViewModels
     public class ReceiptViewModel
     {
         public int Id { get; set; }
+
+        [Display(Name = "Name")]
         public string Username { get; set; }
         [Display(Name = "Registration number")]
         public string VehicleRegistrationNumber { get; set; } //Vehicle
