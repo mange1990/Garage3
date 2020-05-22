@@ -9,6 +9,7 @@ using Garage3.Data;
 using Garage3.Models;
 using Garage3.Models.ViewModels;
 using AutoMapper;
+using Garage3.Filter;
 
 namespace Garage3.Controllers
 {
@@ -31,22 +32,14 @@ namespace Garage3.Controllers
         }
 
         // GET: Vehicles/Details/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var vehicle = await _context.Vehicles
                 .Include(v => v.User)
                 .Include(v => v.VehicleType)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-
             return View(vehicle);
         }
 
@@ -85,18 +78,11 @@ namespace Garage3.Controllers
         }
 
         // GET: Vehicles/Edit/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vehicle.UserId);
             ViewData["VehicleTypeId"] = new SelectList(_context.VehicleTypes, "Id", "Id", vehicle.VehicleTypeId);
             return View(vehicle);
@@ -140,22 +126,14 @@ namespace Garage3.Controllers
         }
 
         // GET: Vehicles/Delete/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var vehicle = await _context.Vehicles
                 .Include(v => v.User)
                 .Include(v => v.VehicleType)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-
             return View(vehicle);
         }
 

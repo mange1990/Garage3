@@ -9,6 +9,7 @@ using Garage3.Data;
 using Garage3.Models;
 using Garage3.Models.ViewModels;
 using AutoMapper;
+using Garage3.Filter;
 
 namespace Garage3.Controllers
 {
@@ -30,20 +31,12 @@ namespace Garage3.Controllers
         }
 
         // GET: VehicleTypes/Details/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var vehicleType = await _context.VehicleTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicleType == null)
-            {
-                return NotFound();
-            }
-
             return View(vehicleType);
         }
 
@@ -72,18 +65,11 @@ namespace Garage3.Controllers
         }
 
         // GET: VehicleTypes/Edit/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var vehicleType = await _context.VehicleTypes.FindAsync(id);
-            if (vehicleType == null)
-            {
-                return NotFound();
-            }
             return View(vehicleType);
         }
 
@@ -123,20 +109,12 @@ namespace Garage3.Controllers
         }
 
         // GET: VehicleTypes/Delete/5
+        [IdRequiredFilter]
+        [ModelNotNullFilter]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var vehicleType = await _context.VehicleTypes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicleType == null)
-            {
-                return NotFound();
-            }
-
             return View(vehicleType);
         }
 
