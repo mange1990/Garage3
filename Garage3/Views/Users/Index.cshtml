@@ -4,11 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="bg-info border rounded-lg font-weight-bold text-light p-4">USER LIST</h1>
+<form class="text-light bg-info border rounded-lg" asp-action="Filter">
+    <div class="input-group m-auto">
+        <input type="text" name="FirstName" class="form-control" placeholder="Search on First Name" />
+        <div class="input-group-append">
+            <input type="text" name="LastName" class="form-control" placeholder="Search on Last Name" />
+        </div>
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-dark "><i class="fa fa-search">&emsp;Search</i></button>
+        </div>
 
-<p>
-    <a asp-action="Add">Create New</a>
-</p>
+    </div>
+</form>
+
+    <div class="btn-group col-sm-6 col mr-4">
+        <a class="btn btn-dark " asp-controller="Users" asp-action="Add">NEW USER</a>
+    </div>
+
+   
 <table class="table">
     <thead>
         <tr>
@@ -52,8 +66,8 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" class="text-info">EDIT</a> |
                     <a asp-action="Details" asp-route-id="@item.Id" class="text-info">DETAILS</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-info">CHECKOUT</a>
-                    <a asp-controller="Vehicles" asp-action="Add" asp-route-id="@item.Id" class="text-info">Add Vehicle</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-info">DELETE</a> |
+                    <a asp-controller="Vehicles" asp-action="Add" asp-route-id="@item.Id" class="btn-outline-dark">ADD VEHICLE</a>
                 </td>
             </tr>
         }
