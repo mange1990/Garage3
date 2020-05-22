@@ -37,6 +37,7 @@ namespace Garage3.Controllers
         }
 
 
+
         // GET: Users/Details/5
        
         [IdRequiredFilter]
@@ -140,6 +141,16 @@ namespace Garage3.Controllers
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+
+        public IActionResult CheckEmail(string email)
+        {
+            if (_context.Users.Any(s => s.Email == email))
+            {
+                return Json($"{email} is in use");
+            }
+
+            return Json(true);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Garage3.Models.ViewModels
     public class VehicleAddViewModel
     {
         public int Wheels { get; set; }
+
+        [Remote(action: "CheckRegNr", controller: "Vehicles")]
         public string RegistrationNumber { get; set; }
         public string Manufacturer { get; set; }
         public string Color { get; set; }

@@ -154,7 +154,15 @@ namespace Garage3.Controllers
             return _context.Vehicles.Any(e => e.Id == id);
         }
 
-        
-        
+        public IActionResult CheckRegNr(string registrationNumber)
+        {
+            if (_context.Vehicles.Any(s => s.RegistrationNumber == registrationNumber))
+            {
+                return Json($"{registrationNumber} is in use");
+            }
+
+            return Json(true);
+        }
+
     }
 }
