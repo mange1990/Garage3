@@ -83,8 +83,14 @@ namespace Garage3.Controllers
             if (found != null)
             {
                 TempData["failedParking"] = $"Reg Nr: This vehicle is already parked!";
-                return RedirectToAction(nameof(Details), "Vehicles", new { id });
+                return RedirectToAction(nameof(Details), "Vehicles", new { id = id });
 
+            }
+            var currentParkingVehicles = _context.ParkingPlaces.Count() + 1;
+            if (currentParkingVehicles > int.Parse(config["parkingCapacity"]))
+            {
+                TempData["message"] = $"Parking capacity has achieved";
+                return RedirectToAction("Details", "Vehicles", new { id = id });
             }
 
             var model = new ParkingPlace
