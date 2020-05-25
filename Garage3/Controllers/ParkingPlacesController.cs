@@ -40,7 +40,7 @@ namespace Garage3.Controllers
 
             var parkingPlace = string.IsNullOrWhiteSpace(regNr) ?
                           model :
-                        model.Where(m => m.VehicleRegistrationNumber.Contains(regNr));
+                        model.Where(m => m.VehicleRegistrationNumber.Contains(regNr.ToUpper()));
            
             parkingPlace = string.IsNullOrWhiteSpace(vehicleType) ?
                          parkingPlace :

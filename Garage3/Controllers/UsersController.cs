@@ -10,6 +10,7 @@ using Garage3.Models;
 using AutoMapper;
 using Garage3.Models.ViewModels;
 using Garage3.Filter;
+using Garage3.Util;
 
 namespace Garage3.Controllers
 {
@@ -36,7 +37,7 @@ namespace Garage3.Controllers
 
             var u = string.IsNullOrWhiteSpace(fullname) ?
                             model :
-                          model.Where(m => m.FullName.Contains(fullname));
+                          model.Where(m => m.FullName.ToLower().Contains(fullname.ToLower()));
 
             switch (sortOrder)
             {
@@ -96,6 +97,11 @@ namespace Garage3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(UserAddViewModel viewModel)
         {
+            var capitalized = CapitalizationFormatting.CapitalizeFirst(viewModel.FirstName, viewModel.LastName);
+            viewModel.FirstName = capitalized[0];
+            viewModel.LastName = capitalized[1];
+            viewModel.Email = viewModel.Email.ToLower();
+
             if (ModelState.IsValid)
             {
                 var user = mapper.Map<User>(viewModel);

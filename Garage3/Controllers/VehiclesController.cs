@@ -10,6 +10,7 @@ using Garage3.Models;
 using Garage3.Models.ViewModels;
 using AutoMapper;
 using Garage3.Filter;
+using Garage3.Util;
 
 namespace Garage3.Controllers
 {
@@ -64,6 +65,12 @@ namespace Garage3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(VehicleAddViewModel viewModel, int id)
         {
+            var capitalized = CapitalizationFormatting.CapitalizeFirst(viewModel.Color, viewModel.VehicleModel);
+            viewModel.Color = capitalized[0];
+            viewModel.VehicleModel = capitalized[1];
+            viewModel.Manufacturer = viewModel.Manufacturer.ToUpper();
+            viewModel.RegistrationNumber = viewModel.RegistrationNumber.ToUpper();
+
             if (ModelState.IsValid)
             {
                 var vehicle = mapper.Map<Vehicle>(viewModel);
