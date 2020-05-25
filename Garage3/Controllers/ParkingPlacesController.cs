@@ -29,18 +29,50 @@ namespace Garage3.Controllers
         }
 
         // GET: ParkingPlaces
-        public async Task<IActionResult> Index(string regNr, string vehicleType)
+        public async Task<IActionResult> Index(string regNr, string vehicleType, string sortOrder)
         {
             var model = await mapper.ProjectTo<ParkingPlaceListViewModel>(_context.ParkingPlaces).Take(20).ToListAsync();
 
+            ViewData["VTypeSortParm"] = sortOrder == "VType" ? "vtype_desc" : "VType";
+            ViewData["RegNrSortParm"] = sortOrder == "RegNr" ? "regnr_desc" : "RegNr";
+            ViewData["NameSortParm"] = sortOrder == "Name" ? "name_desc" : "Name";
+            ViewData["ArrivalSortParm"] = sortOrder == "arrival_desc" ? "Arrival" : "arrival_desc";
+
             var parkingPlace = string.IsNullOrWhiteSpace(regNr) ?
                           model :
-                        model.Where(m => m.VehicleRegistrationNumber.Contains(regNr));
+                        model.Where(m => m.VehicleRegistrationNumber.Contains(regNr.ToUpper()));
            
             parkingPlace = string.IsNullOrWhiteSpace(vehicleType) ?
                          parkingPlace :
                        parkingPlace.Where(m => m.VehicleType == int.Parse(vehicleType));
 
+            switch (sortOrder)
+            {
+                case "VType":
+                    parkingPlace = parkingPlace.OrderBy(s => s.VehicleType);
+                    break;
+                case "vtype_desc":
+                    parkingPlace = parkingPlace.OrderByDescending(s => s.VehicleType);
+                    break;
+                case "Name":
+                    parkingPlace = parkingPlace.OrderBy(s => s.Username);
+                    break;
+                case "name_desc":
+                    parkingPlace = parkingPlace.OrderByDescending(s => s.Username);
+                    break;
+                case "RegNr":
+                    parkingPlace = parkingPlace.OrderBy(s => s.VehicleRegistrationNumber);
+                    break;
+                case "arrival_desc":
+                    parkingPlace = parkingPlace.OrderByDescending(s => s.Arrival);
+                    break;
+                case "regnr_desc":
+                    parkingPlace = parkingPlace.OrderByDescending(s => s.VehicleRegistrationNumber);
+                    break;
+                default:
+                    parkingPlace = parkingPlace.OrderBy(s => s.Arrival);
+                    break;
+            }
 
             return View(parkingPlace);
         }
