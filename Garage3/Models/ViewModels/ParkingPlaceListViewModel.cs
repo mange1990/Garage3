@@ -21,8 +21,8 @@ namespace Garage3.Models.ViewModels
         public string Username { get; set; }
 
         [Display(Name = "Vehicle type")]
+        public string VehicleTypeName { get; set; }
         public int VehicleType { get; set; }
-
         public string Duration => ((DateTime.Now - Arrival).ToString("dd'\\d 'hh'\\h 'mm\\m"));
     }
 }
