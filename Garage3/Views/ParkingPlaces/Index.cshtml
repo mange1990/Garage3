@@ -24,9 +24,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ParkingSpot)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Arrival)<span> </span><a asp-action="Index" asp-route-sortOrder="@ViewData["ArrivalSortParm"]" class="text-info">&#8645;</a>
             </th>
             <th>
@@ -48,9 +45,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParkingSpot)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Arrival)
                 </td>

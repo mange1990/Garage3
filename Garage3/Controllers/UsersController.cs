@@ -28,7 +28,7 @@ namespace Garage3.Controllers
         // GET: Users
         public async Task<IActionResult> Index(string fullname, string sortOrder)
         {
-            var model = await mapper.ProjectTo<UserListViewModel>(_context.Users).Take(20).ToListAsync();
+            var model = await mapper.ProjectTo<UserListViewModel>(_context.Users).ToListAsync();
 
             ViewData["VCountSortParm"] = sortOrder == "VCount" ? "vcount_desc" : "VCount";
             ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";

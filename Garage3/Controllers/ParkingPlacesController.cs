@@ -31,7 +31,7 @@ namespace Garage3.Controllers
         // GET: ParkingPlaces
         public async Task<IActionResult> Index(string regNr, string vehicleType, string sortOrder)
         {
-            var model = await mapper.ProjectTo<ParkingPlaceListViewModel>(_context.ParkingPlaces).Take(20).ToListAsync();
+            var model = await mapper.ProjectTo<ParkingPlaceListViewModel>(_context.ParkingPlaces).ToListAsync();
 
             ViewData["VTypeSortParm"] = sortOrder == "VType" ? "vtype_desc" : "VType";
             ViewData["RegNrSortParm"] = sortOrder == "RegNr" ? "regnr_desc" : "RegNr";
@@ -121,7 +121,7 @@ namespace Garage3.Controllers
             var currentParkingVehicles = _context.ParkingPlaces.Count() + 1;
             if (currentParkingVehicles > int.Parse(config["parkingCapacity"]))
             {
-                TempData["message"] = $"Parking capacity has achieved";
+                TempData["parkingFull"] = $"Parking capacity has been reached";
                 return RedirectToAction("Details", "Vehicles", new { id = id });
             }
 

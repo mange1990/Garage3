@@ -9,7 +9,7 @@
 <div>
     <h4>VehicleDetailsViewModel</h4>
 
-    <div class="alert text-error font-weight-bold mb-0">@TempData["message"]</div>
+    
     <hr />
     <dl class="row">
 
@@ -56,7 +56,8 @@
         <button type="submit">NEW PARK</button>
     </form>
     <div class="alert text-danger font-weight-bold mb-0">@TempData["failedParking"]</div>
+    <div class="alert text-danger font-weight-bold mb-0">@TempData["parkingFull"]</div>
     @*<a asp-controller="ParkingPlaces" asp-action="Create" method="post" asp-route-id="@Model.Id">Park</a>*@
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index" class="text-info">BACK TO THE LIST</a>
+    <a asp-controller="Users" asp-action="Index" class="text-info">BACK TO THE LIST</a>
 </div>
