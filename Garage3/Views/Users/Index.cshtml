@@ -5,8 +5,8 @@
 }
 
 <h1 class="bg-info border rounded-lg font-weight-bold text-light p-4">USER LIST</h1>
-<form method="get" asp-controller="Users" asp-action="Index" class="text-light bg-info border rounded-lg">
-    <div class="input-group mb-3">
+<form method="get" asp-controller="Users" asp-action="Index" class="text-light bg-info border border-info rounded-lg">
+    <div class="input-group">
         <input type="text" class="form-control" name="fullname" placeholder="Search by name..." />
         @*<div class="input-group-append">
                 <select asp-for="Color" asp-items="@Model." class="form-control">
@@ -33,12 +33,12 @@
 </form>
 -->
 
-<div class="btn-group col-sm-6 col mr-4">
+<div class="btn-group col-sm-6 col mr-4 mt-1">
     <a class="btn btn-dark " asp-controller="Users" asp-action="Add">NEW USER</a>
 </div>
 
    <div class="alert text-success font-weight-bold mb-0">@TempData["message"]</div>
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -73,10 +73,8 @@
                     @Html.DisplayFor(modelItem => item.VehicleCount)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="text-info">EDIT</a> |
                     <a asp-action="Details" asp-route-id="@item.Id" class="text-info">DETAILS</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id" class="text-info">DELETE</a> |
-                    <a asp-controller="Vehicles" asp-action="Add" asp-route-id="@item.Id" class="btn-outline-dark">ADD VEHICLE</a>
+                    <a asp-controller="Vehicles" asp-action="Add" asp-route-id="@item.Id" class="text-info">ADD VEHICLE</a>
                 </td>
             </tr>
         }

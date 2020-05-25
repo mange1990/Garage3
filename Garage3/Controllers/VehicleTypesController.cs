@@ -63,7 +63,7 @@ namespace Garage3.Controllers
 
                 _context.Add(vehicleType);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Users");
             }
             return View(viewModel);
         }

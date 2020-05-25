@@ -21,14 +21,14 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse ">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">USER </a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">USERS</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Parkingplaces" asp-action="Index">PARKING PLACES</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Parkingplaces" asp-action="Index">GARAGE</a>
                             </li>
-                            <li class="nav-item">
+                            @*<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="" asp-action="Index">ABOUT US</a>
-                            </li>
+                            </li>*@
                         </ul>
                     </div>
                 </div>
@@ -42,9 +42,9 @@
             </main>
         </div>
 
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2020 - Garage3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <footer class="border-top footer d-flex flex-row justify-content-center text-muted hideforprint">
+            <div>
+                &copy; 2020 - Garage 3
             </div>
         </footer>
         <script src="~/lib/jquery/dist/jquery.min.js"></script>

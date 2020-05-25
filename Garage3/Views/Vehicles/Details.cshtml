@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 class="bg-info border rounded-lg font-italic text-light p-4">VEHCILE DETAILS</h1>
+<h1 class="bg-info border rounded-lg font-italic text-light p-4">VEHICLE DETAILS</h1>
 
 <div>
     <hr />
@@ -50,11 +50,10 @@
 </div>
 <div>
     <form asp-controller="ParkingPlaces" asp-action="Create" asp-route-id="@Model.Id" method="post">
-        <button type="submit">NEW PARK</button>
+        <button type="submit" class="btn btn-info">Park the vehicle</button> |
+        <a asp-controller="Users" asp-action="Index" class="text-info">BACK TO THE USER LIST</a>
     </form>
     <div class="alert text-danger font-weight-bold mb-0">@TempData["failedParking"]</div>
     <div class="alert text-danger font-weight-bold mb-0">@TempData["parkingFull"]</div>
     @*<a asp-controller="ParkingPlaces" asp-action="Create" method="post" asp-route-id="@Model.Id">Park</a>*@
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-controller="Users" asp-action="Index" class="text-info">BACK TO THE LIST</a>
 </div>
