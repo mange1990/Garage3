@@ -25,13 +25,48 @@ namespace Garage3.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index(string fullname)
+        public async Task<IActionResult> Index(string fullname, string sortOrder)
         {
             var model = await mapper.ProjectTo<UserListViewModel>(_context.Users).Take(20).ToListAsync();
+
+            ViewData["VCountSortParm"] = sortOrder == "VCount" ? "vcount_desc" : "VCount";
+            ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";
+            ViewData["NameSortParm"] = sortOrder == "name_desc" ? "Name" : "name_desc";
+            ViewData["AgeSortParm"] = sortOrder == "Age" ? "age_desc" : "Age";
 
             var u = string.IsNullOrWhiteSpace(fullname) ?
                             model :
                           model.Where(m => m.FullName.Contains(fullname));
+
+            switch (sortOrder)
+            {
+                case "VCount":
+                    u = u.OrderBy(s => s.VehicleCount);
+                    break;
+                case "vcount_desc":
+                    u = u.OrderByDescending(s => s.VehicleCount);
+                    break;
+                case "Age":
+                    u = u.OrderBy(s => s.Age);
+                    break;
+                case "name_desc":
+                    u = u.OrderByDescending(s => s.FullName);
+                    break;
+                case "Email":
+                    u = u.OrderBy(s => s.Email);
+                    break;
+                case "age_desc":
+                    u = u.OrderByDescending(s => s.Age);
+                    break;
+                case "email_desc":
+                    u = u.OrderByDescending(s => s.Email);
+                    break;
+                default:
+                    u = u.OrderBy(s => s.FullName);
+                    break;
+                    
+            }
+
 
             return View(u);
         }
