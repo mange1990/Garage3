@@ -10,6 +10,7 @@ using Garage3.Models;
 using AutoMapper;
 using Garage3.Models.ViewModels;
 using Garage3.Filter;
+using Garage3.Util;
 
 namespace Garage3.Controllers
 {
@@ -25,13 +26,48 @@ namespace Garage3.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index(string fullname)
+        public async Task<IActionResult> Index(string fullname, string sortOrder)
         {
             var model = await mapper.ProjectTo<UserListViewModel>(_context.Users).Take(20).ToListAsync();
 
+            ViewData["VCountSortParm"] = sortOrder == "VCount" ? "vcount_desc" : "VCount";
+            ViewData["EmailSortParm"] = sortOrder == "Email" ? "email_desc" : "Email";
+            ViewData["NameSortParm"] = sortOrder == "name_desc" ? "Name" : "name_desc";
+            ViewData["AgeSortParm"] = sortOrder == "Age" ? "age_desc" : "Age";
+
             var u = string.IsNullOrWhiteSpace(fullname) ?
                             model :
-                          model.Where(m => m.FullName.Contains(fullname));
+                          model.Where(m => m.FullName.ToLower().Contains(fullname.ToLower()));
+
+            switch (sortOrder)
+            {
+                case "VCount":
+                    u = u.OrderBy(s => s.VehicleCount);
+                    break;
+                case "vcount_desc":
+                    u = u.OrderByDescending(s => s.VehicleCount);
+                    break;
+                case "Age":
+                    u = u.OrderBy(s => s.Age);
+                    break;
+                case "name_desc":
+                    u = u.OrderByDescending(s => s.FullName);
+                    break;
+                case "Email":
+                    u = u.OrderBy(s => s.Email);
+                    break;
+                case "age_desc":
+                    u = u.OrderByDescending(s => s.Age);
+                    break;
+                case "email_desc":
+                    u = u.OrderByDescending(s => s.Email);
+                    break;
+                default:
+                    u = u.OrderBy(s => s.FullName);
+                    break;
+                    
+            }
+
 
             return View(u);
         }
@@ -61,6 +97,11 @@ namespace Garage3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(UserAddViewModel viewModel)
         {
+            var capitalized = CapitalizationFormatting.CapitalizeFirst(viewModel.FirstName, viewModel.LastName);
+            viewModel.FirstName = capitalized[0];
+            viewModel.LastName = capitalized[1];
+            viewModel.Email = viewModel.Email.ToLower();
+
             if (ModelState.IsValid)
             {
                 var user = mapper.Map<User>(viewModel);

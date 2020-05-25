@@ -27,16 +27,16 @@
                 @Html.DisplayNameFor(model => model.ParkingSpot)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Arrival)
+                @Html.DisplayNameFor(model => model.Arrival)<span> </span><a asp-action="Index" asp-route-sortOrder="@ViewData["ArrivalSortParm"]" class="text-info">&#8645;</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleRegistrationNumber)
+                @Html.DisplayNameFor(model => model.VehicleRegistrationNumber)<span> </span><a asp-action="Index" asp-route-sortOrder="@ViewData["RegNrSortParm"]" class="text-info">&#8645;</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Username)
+                @Html.DisplayNameFor(model => model.Username)<span> </span><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" class="text-info">&#8645;</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleTypeName)
+                @Html.DisplayNameFor(model => model.VehicleTypeName)<span> </span><a asp-action="Index" asp-route-sortOrder="@ViewData["VTypeSortParm"]" class="text-info">&#8645;</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Duration)
